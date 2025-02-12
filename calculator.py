@@ -14,8 +14,11 @@ def multiply(x, y):
 
 
 def divide(x, y):
+    if y == 0:
+        return "Error. Division by zero."
     return x / y
 
+history = []
 
 print("Hey Hii!!")
 print("Its a calculator made by Praneet Bose. ")
@@ -25,31 +28,44 @@ print("1.add")
 print("2.subtract")
 print("3.multiply")
 print("4.divide")
+print("5. View History")
 
 while True:
-
     choice = input("Enter the choice of CALCULATION: ")
 
-    if choice in ('add', '1', 'subtract', ('2'), ('multiply'), '3', ('divide'), '4'):
+    if choice in ('1', 'add', '2', 'subtract', '3', 'multiply', '4', 'divide'):
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
         if choice == '1' or choice == 'add':
-            print(num1, "+", num2, "=", add(num1, num2))
-
+            result = add(num1, num2)
+            operation = f"{num1} + {num2} = {result}"
         elif choice == '2' or choice == 'subtract':
-            print(num1, "-", num2, "=", subtract(num1, num2))
-
+            result = subtract(num1, num2)
+            operation = f"{num1} - {num2} = {result}"
         elif choice == '3' or choice == 'multiply':
-            print(num1, "*", num2, "=", multiply(num1, num2))
-
+            result = multiply(num1, num2)
+            operation = f"{num1} * {num2} = {result}"
         elif choice == '4' or choice == 'divide':
-            print(num1, "/", num2, "=", divide(num1, num2))
+            result = divide(num1, num2)
+            operation = f"{num1} / {num2} = {result}"
 
-        next_problem = input("Let's do next calculation? (yes/no): ")
-        if next_problem == "no":
-            break
+        print(operation)
+        history.append(operation)
+
+    elif choice == '5' or choice.lower() == 'history':
+        print("\nCalculation History:")
+        if history:
+            for record in history:
+                print(record)
+        else:
+            print("No calculations yet.")
 
     else:
-        print("The input is wrong.....Pls try again...")
+        print("Invalid input...Pls try again...")
+        continue
+
+    next_problem = input("Let's do another calculation? (yes/no): ")
+    if next_problem.lower() == "no":
+        break
 

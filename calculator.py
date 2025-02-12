@@ -18,6 +18,20 @@ def divide(x, y):
         return "Error. Division by zero."
     return x / y
 
+def matrix_addition(A, B):
+    return [[A[i][j] + B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+def matrix_subtraction(A, B):
+    return [[A[i][j] - B[i][j] for j in range(len(A[0]))] for i in range(len(A))]
+
+def matrix_multiplication(A, B):
+    result = [[0] * len(B[0]) for _ in range(len(A))]
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                result[i][j] += A[i][k] * B[k][j]
+    return result
+
 history = []
 
 print("Hey Hii!!")
@@ -29,6 +43,9 @@ print("2.subtract")
 print("3.multiply")
 print("4.divide")
 print("5. View History")
+print("6. Matrix Addition")
+print("7. Matrix Subtraction")
+print("8. Matrix Multiplication")
 
 while True:
     choice = input("Enter the choice of CALCULATION: ")
@@ -60,6 +77,26 @@ while True:
                 print(record)
         else:
             print("No calculations yet.")
+    elif choice in ('6', 'matrix addition', '7', 'matrix subtraction', '8', 'matrix multiplication'):
+        rows = int(input("Enter number of rows: "))
+        cols = int(input("Enter number of columns: "))
+        print("Enter elements for first matrix:")
+        A = [[float(input(f"A[{i}][{j}]: ")) for j in range(cols)] for i in range(rows)]
+        print("Enter elements for second matrix:")
+        B = [[float(input(f"B[{i}][{j}]: ")) for j in range(cols)] for i in range(rows)]
+
+        if choice == '6' or choice == 'matrix addition':
+            result = matrix_addition(A, B)
+            operation = f"Matrix Addition:\n{A}\n+\n{B}\n=\n{result}"
+        elif choice == '7' or choice == 'matrix subtraction':
+            result = matrix_subtraction(A, B)
+            operation = f"Matrix Subtraction:\n{A}\n-\n{B}\n=\n{result}"
+        elif choice == '8' or choice == 'matrix multiplication':
+            result = matrix_multiplication(A, B)
+            operation = f"Matrix Multiplication:\n{A}\n*\n{B}\n=\n{result}"
+
+        print(operation)
+        history.append(operation)
 
     else:
         print("Invalid input...Pls try again...")
